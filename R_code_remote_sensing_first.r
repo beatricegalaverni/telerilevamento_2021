@@ -10,6 +10,7 @@ plot(p224r63_2011, col=colore)
 # Cambiare colore ed avere scala di colori differenti 
 colore<-colorRampPalette(c("pink","black","green"))(100)
 plot(p224r63_2011, col=colore)
+# Lezione 24.03.21
 Vado a richiamare il paccheto raster 
 library(raster)
 Vado a richiamare la cartella lab
@@ -73,4 +74,54 @@ clr <- colorRampPalette(c("dark red","red","light pink")) (100)
 plot(p224r63_2011$B3_sre, col=clr)
 cln <- colorRampPalette(c("red","orange","yellow")) (100)
 plot(p224r63_2011$B4_sre, col=cln)
+# Lezione 26.03.21
+library(raster)
+setwd("C:/lab/")
+p224r63_2011 <- brick("p224r63_2011_masked.grd")
+# Queste sono le bande di Landsat contenute all'interno dell'immagine
+# B1: blu
+# B2: verde
+# B3: rosso
+# B4: infrarosso vicino
+# B5: infrarosso medio
+# B6: infrarosso termico
+# B7: infrarosso medio
+# RGB
+# Utilizziamo schema RBG per vedere immagine in colori naturali
+plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
+# Utilizziamo altre bande 
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="Lin")
+# Utilizziamo funzione #par per creare un multiframe 2x2 delle 4 immagini che abbiamo creato
+par(mfrow=c(2,2))
+plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="Lin")
+# Creare un PDF e inserirlo nella cartella LAB
+pdf("il_mio_primo_pdf.pdf")
+par(mfrow=c(2,2))
+plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="Lin")
+dev.off()
+# utilizziamo la funzione #hist per fare uno stretch non lineare 
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="hist")
+# Multiframe a 3 righe e 1 colonna di immagine a colori naturali, immgine con infrarosso e con histogram stretch
+par(mfrow=c(3,1))
+plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="hist")
+
+
+
+
+
+
+
+
+
 
