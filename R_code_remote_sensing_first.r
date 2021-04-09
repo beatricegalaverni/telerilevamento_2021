@@ -115,13 +115,44 @@ par(mfrow=c(3,1))
 plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
 plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin")
 plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="hist")
-
-
-
-
-
-
-
-
-
+# Lezione 31.03.21
+library(raster)
+setwd("C:/lab/")
+p224r63_2011 <- brick("p224r63_2011_masked.grd")
+p224r63_2011
+# Inseriamo il file del 1988
+p224r63_1988 <- brick("p224r63_1988_masked.grd")
+p224r63_1988
+# plottiamo l'intera immagine 
+plot( p224r63_1988)
+# Queste sono le bande di Landsat contenute all'interno dell'immagine
+# B1: blu
+# B2: verde
+# B3: rosso
+# B4: infrarosso vicino
+# B5: infrarosso medio
+# B6: infrarosso termico
+# B7: infrarosso medio
+# Plottiamo immagine con sistema RGB in colori naturali e con stretch lineare
+plotRGB(p224r63_1988, r=3, g=2, b=1, stretch="Lin")
+# Andiamo a visualizzare infrarosso
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin")
+# Utilizziamo funzione #par per creare multiframe e mettere a confronto le immagini del 1988 e del 2011
+par(mfrow=c(1,2))
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
+# Utilizziamo funzione #par per creare multiframe e mettere a confronto le immagini del 1988 e del 2011 sia con strecht lineare che con histogram 
+par(mfrow=c(2,2))
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="hist")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="hist")
+# Facciamo PDF di questo grafico 2 x 2 utilizando la funzione # pdf e salviamo nella cartella lab 
+pdf("multitemp.pdf")
+par(mfrow=c(2,2))
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="hist")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="hist")
+dev.off()
 
