@@ -9,6 +9,7 @@ colore<-colorRampPalette(c("black","gray","light gray"))(100)
 plot(p224r63_2011, col=colore)
 # Cambiare colore ed avere scala di colori differenti 
 colore<-colorRampPalette(c("pink","black","green"))(100)
+# plottiamo la ostra immagine con la scala di colore cambiata
 plot(p224r63_2011, col=colore)
 # Lezione 24.03.21
 Vado a richiamare il paccheto raster 
