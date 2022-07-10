@@ -70,3 +70,4 @@ clb <- colorRampPalette(c("blue","white","red"))(100)
 plot(melt_amount, col=clb)
 # facciamo un level plot
 levelplot(melt_amount, col.regions=clb)
+install.packages("knitr")
