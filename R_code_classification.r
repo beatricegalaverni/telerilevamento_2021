@@ -27,3 +27,28 @@ sun <- brick("sun.png")
 sunc <- unsuperClass(sun, nClasses=3)
 plot(sunc$map)
 
+# Utilizziamo immagini Gran Canyon
+# https://landsat.visibleearth.nasa.gov/view.php?id=80948
+library(raster)
+library(RStoolbox)
+setwd("C:/lab/")
+# dato che la nostra immagine è formata da più livelli utilizziamo la funzione brick per caricare più livelli insieme
+gc <- brick("dolansprings_oli_2013088_canyon_lrg.jpg")
+# per visualizzare l'immagine rgB usiamo, usando lo stretch per aumentare la potenza visiva dei colori 
+plotRGB(gc, r=1, g=2, b=3, stretch="lin")
+# cambiando il tipo di streach
+plotRGB(gc, r=1, g=2, b=3, stretch="hist")
+# procediamo con la la classificazione non supervisionata utilizzand la funnzione unsuperClass
+# definiamo il numero di classi =2
+gcc2 <- unsuperClass(gc, nClasses=2)
+gcc2
+# plottiamo l'immagine legata alla mappa
+plot(gcc2$map)
+# classfichiamo stabileno 4 classi 
+gcc4 <- unsuperClass(gc, nClasses=4)
+plot(gcc4$map)
+
+
+
+
+
