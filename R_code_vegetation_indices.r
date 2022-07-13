@@ -1,6 +1,7 @@
 # R_code_vegetation_indices.r
 library(raster)
 library(RStoolbox)
+library/rasterdiv)
 setwd("C:/lab/)
 # carichiamo le due immagini attraverso la funzione brick 
 defor1 <- brick("defor1.jpg")
@@ -65,8 +66,16 @@ plot(vi2, col=cl)
 difndvi <- ndvi1 - ndvi2
 cld <- colorRampPalette(c('blue','white','red'))(100) 
 plot(difndvi, col=cld)
-
-
+# richiamando la libreria rasterdiv plottiamo copNDVI
+plot(copNDVI)
+# per rimuovere i valori che riguardano l'acqua usiamo la funziona cbind
+# trasformiamo i pixel con i valori 253,254 e 255 e li trasformiamo in non valori 
+# riclassifichiamo l'immagine originale copNDVI
+copNDVI <- reclassify(copNDVI, cbind(253:255, NA))
+# otteniamo una mappa dell'NDVI a scala globale
+plot(copNDVI)
+# utilizziamo la funzione levelplot che ci mostra le medie dei valori sulle righe e sulle colonne
+levelplot(copNDVI)
 
 
 
