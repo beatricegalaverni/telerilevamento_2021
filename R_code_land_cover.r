@@ -28,53 +28,58 @@ p2 <- ggRGB(defor2, r=1, g=2, b=3, stretch="lin")
 # la funzione grid.arrange compone come ci piace di più il multiframe
 # in questo caso in due righe 
 grid.arrange(p1, p2, nrow=2)
-
-# unsupervised classification
+# Classificazione non supervisionata utilizzando la funzione unsuperClass 
+# definiamo come argometo 2 classi 
 d1c <- unsuperClass(defor1, nClasses=2)
+# per plottare dobbiamo legare il modello alla mappa
 plot(d1c$map)
-# class 1: forest
-# class 2: agriculture
-
-# set.seed() would allow you to attain the same results ...
-
+# classe 1: zona agricola 
+# classe 2: foresta tropicale
+# set.seed() si può utilizzare per dare un numero alla funzione e ottenere gli stessi risultati
+# applicchiamo le stesse funzioni e le applichiamo alle seconda immagine 
 d2c <- unsuperClass(defor2, nClasses=2)
 plot(d2c$map)
-# class 1: agriculture
-# class 2: forest
-
+# classe 1: zona agricola foresta tropicale
+# classe 2: foresta tropicale
+# Facciamo una classificazione con 3 classi 
 d2c3 <- unsuperClass(defor2, nClasses=3)
 plot(d2c3$map)
-
-# frequencies
+# calcoliamo quanto abbiamo perso di foresta
+# calcoliamo la frequenza dei pixel di una certa classe (foresta, arcolo)
+# utilizziamo la funzione freq()
 freq(d1c$map)
-#   value  count
-# [1,]     1 306583
-# [2,]     2  34709
-
+value  count
+[1,]     1  34724
+[2,]     2 306568
+# calcoliamo la proporzione 
 s1 <- 306583 + 34709
-
 prop1 <- freq(d1c$map) / s1
-# prop forest: 0.8983012
-# prop agriculture: 0.1016988
-
+# proporzione foresta: 0.8983012
+# proporzione agricoltura: 0.1016988
+# calcoliamo le proporzioni anche per la seconda mappa
 s2 <- 342726
 prop2 <- freq(d2c$map) / s2
-# prop forest: 0.5206958
-# prop agriculture: 0.4793042
-
-# build a dataframe
+# proporzione foresta: 0.5206958
+# proporzione agricoltura: 0.4793042
+# generiamo un dataset, in R chiamato dataframe
+# facciamo una prima colonna dove mettiamo i fattori (variabili categoriche): cover
 cover <- c("Forest","Agriculture")
+# facciamo altre due colonne dove mettiamo i volori percentuali dei due anni 
 percent_1992 <- c(89.83, 10.16)
 percent_2006 <- c(52.06, 47.93)
-
+# attraverso la funzione data.frame creiamo un data frame 
 percentages <- data.frame(cover, percent_1992, percent_2006)
 percentages
-
-# let's plot them!
+# facciamo un grafico con la funzione ggplot
+# la funzione plotta un dataset(percentages)
+# è composta dalla partr aestetics, definiamo le colonne e il colore e il tipo di grafico 
+# stat=identity significa che utilizziamo i dati così come sono 
+# fill definisce il colore all'interno
 ggplot(percentages, aes(x=cover, y=percent_1992, color=cover)) + geom_bar(stat="identity", fill="white")
 ggplot(percentages, aes(x=cover, y=percent_2006, color=cover)) + geom_bar(stat="identity", fill="white")
-
+# nominiamo i grafici che abbiamo creato
 p1 <- ggplot(percentages, aes(x=cover, y=percent_1992, color=cover)) + geom_bar(stat="identity", fill="white")
 p2 <- ggplot(percentages, aes(x=cover, y=percent_2006, color=cover)) + geom_bar(stat="identity", fill="white")
-
+# utilizziamo la funzione grid.arrange per posizionare più grafici all'interno di una pagina
+# stabiliamo un'unica riga
 grid.arrange(p1, p2, nrow=1)
