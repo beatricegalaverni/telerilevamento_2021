@@ -2,14 +2,15 @@
 library(raster)
 library(RStoolbox)
 library(ggplot2)
-library(gridExtra) 
+library(gridExtra)
+# viridis serve per colorare i ggplot
 library(viridis) 
 setwd("C:/lab/") 
 # L'immagine sentinel è formata da 3 bande per questo utilizziamo la funzione brick
 # utilizziamo brick per importare l'immagine 
 sent <- brick("sentinel.png")
 # NIR 1, RED 2, GREEN 3
-# sicco questa sequenza è di defolt r=1, g=2, b=3 possiamo non specificare (plotRGB(sent, r=1, g=2, b=3, stretch="lin") )
+# siccome questa sequenza è di defolt r=1, g=2, b=3 possiamo non specificare (plotRGB(sent, r=1, g=2, b=3, stretch="lin") )
 # applichiamo un stretch lineare
 plotRGB(sent, stretch="lin") 
 # possiamo cambaire composizione 
@@ -62,36 +63,58 @@ plot(sentpca$map)
 # facciamo un summary del modello per vedere quanta variabilità iniizale spiegano le componenti
 summary(sentpca$model)
 # la prima componente spiega il 67.36804% dell'informazione iniziale
+# la prima componente PC1
+# per usare la prima componente leghiamo la mappa con il dollaro alla prima componente 
+# lo associamo ad un nome
 pc1 <- sentpca$map$PC1
-
+# calcoliamo la deviazione standar della prima componente principale
 pc1sd5 <- focal(pc1, w=matrix(1/25, nrow=5, ncol=5), fun=sd)
+# definiamo una coloRampPalette
 clsd <- colorRampPalette(c('blue','green','pink','magenta','orange','brown','red','yellow'))(100) # 
 plot(pc1sd5, col=clsd)
-
+# attraverso la funzione source si salva il pezzo di codice e lo facciamo partire dentro r
+# questo è il pezzo di codice
 # pc1 <- sentpca$map$PC1
 # pc1sd7 <- focal(pc1, w=matrix(1/49, nrow=7, ncol=7), fun=sd)
 # plot(pc1sd7)
-
-# With the source function you can upload code from outside!
+# lo scrichiamo da virtuale
+# lo salviamo con il nome source_test_lezione.r nel computer
+#questo codice è il calcolo di una deviazione standard su 7 per 7 pixel
+# usciamo da R e portiamo dentro il codice
 source("source_test_lezione.r")
+# carichiamo un altro codice dall'esterno 
 source("source_ggplot.r")
-
-# https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html
-# The package contains eight color scales: “viridis”, the primary choice, and five alternatives with similar properties - “magma”, “plasma”, “inferno”, “civids”, “mako”, and “rocket” -, and a rainbow color map - “turbo”.
-
+# attraverso ggplot possiamo fare dei plot migliori 
+# attraverso la funzione ggplot() creiamo un finestra nuova vuota
+# la funzione funziona aggiungendo blocchi attraverso + 
 p1 <- ggplot() +
+# si deve definire il tipo di geometria (es: geom_point che crea dei punti nel ggplo, geom_line punti connessi tra linee)
+# stiamo utilizzando un raster quindi useremo geom_raster
+# geom_raster della mappa della PCA
+# definiamo l'estetiche attraverso l'argomento mapping definiaimo cosa vogliamo mappare
+# avremmo x=x y=y e come riempimento avremo il layer
 geom_raster(pc1sd5, mapping = aes(x = x, y = y, fill = layer)) +
+# il pacchetto viridis contine 5 alternative “magma”, “plasma”, “inferno”, “civids”, “mako”, “rocket” e  “turbo”.
+# la funzione per usare queste legende è scale_fill_viridis
+# possiamo non scrivere niente viene usata l'alternativa di defolt
 scale_fill_viridis()  +
+# attraverso ggtitle possiamo mettere il titolo
 ggtitle("Standard deviation of PC1 by viridis colour scale")
 
+# prendiamo lo stesso codice ma applichiamo l'opzione magma cambiando anche il titolo
 p2 <- ggplot() +
 geom_raster(pc1sd5, mapping = aes(x = x, y = y, fill = layer)) +
 scale_fill_viridis(option = "magma")  +
 ggtitle("Standard deviation of PC1 by magma colour scale")
 
+# prendiamo lo stesso codice ma applichiamo l'opzione turbo cambiando anche il titolo
 p3 <- ggplot() +
 geom_raster(pc1sd5, mapping = aes(x = x, y = y, fill = layer)) +
 scale_fill_viridis(option = "turbo")  +
 ggtitle("Standard deviation of PC1 by turbo colour scale")
 
+# abbiamo 3 mappe disponibili
+# attraverso la funzione grid.arrange possiamo mettere insime più mappe di ggplot
+# ogni plot deve essere associato ad un oggetto 
+# definiamo il numero di righe nrow=3
 grid.arrange(p1, p2, p3, nrow = 1)
