@@ -1,0 +1,22 @@
+# R_code_NO2
+library(raster)
+# facciamo il set della working directroy
+setwd("C:/lab/EN")
+# importiamo la prima immagine, solo una banda 
+EN01<- raster("EN_0001".png)
+# plottiamo la prima immagine con una coloRampPalette da noi scelta 
+# i valori più alti sono evidenziati dal colore rosso
+cls <- colorRampPalette(c("white","pink","red")) (200)
+plot(EN01, col=cls)
+# importiamo l'ultima immagine del set di immagini con la coloRampPalette scritta in precedenza 
+EN13<- raster("EN_0013".png)
+plot(EN13, col=cls)
+# Facciamo la differenzaa tra la prima immagine e la trenicesima 
+# differenza tra i mesi di gennaio  e quello di marzo
+dif<- EN01-EN13
+plot(dif, col=cls)
+# plottiamo insieme le 3 immagini ottenute, con le stesse colorRampPalette e mettendo il titolo 
+par(mfcol=c(1,3))
+plot(EN01, col=cls, main="NO2 in Gennaio")
+plot(EN13, col=cls, main="NO2 in Marzo")
+plot(dif, col=cls  main="Differenza tra Gennaio e Marzo")
