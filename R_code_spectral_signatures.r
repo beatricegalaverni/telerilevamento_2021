@@ -70,12 +70,12 @@ band<-c(1,2,3)
 tempo1<-c(214,13,29)
 tempo2<-c(189,176,168)
 # costruiamo il data frame 
-spectralst <- data.frame(band,time1,time2)
+spectralst <- data.frame(band,tempo1,tempo2)
 spectralst
 #attraverso ggplot plottiamo 
 ggplot(spectralst , aes(x=band)) + 
     geom_line(aes(y = tempo1), color = "green")+
-    geom_line(aes(y = tempo2), color = "blue", linetype = "dotted")+
+    geom_line(aes(y = tempo2), color = "blue")+
     labs(x="band", y="reflectance")
 # inseriamo i valori anche del secondo pixel     
 band<-c(1,2,3)
@@ -83,6 +83,38 @@ tempo1p1<-c(214,13,29)
 tempo1p2<-c(226,17,36)
 tempo2p1<-c(189,176,168)
 tempo2p1<-c(233,127,131)
-
+# aggiugiamo questi valori al data.frame 
+spectralst <- data.frame(band,tempo1p1,tempo1p2,tempo2p1,tempo2p2)
+# aggiungimao pezzi al ggplot
+ggplot(spectralst , aes(x=band)) + 
+    geom_line(aes(y = tempo1p1), color = "green", linetype="dotted")+
+    geom_line(aes(y = tempo1p2), color = "green", linetype="dotted")+
+    geom_line(aes(y = tempo2p1), color = "blue", linetype="dotted")+
+      geom_line(aes(y = tempo2p2), color = "blue", linetype="dotted")+
+    labs(x="band", y="reflectance")
+  
+# lavoriamo su immagine presa da earth observatory 
+eo<-brick("immagine18.jpg")
+plotRGB(eo, 1,2,3, stretch="hist")
+click(eo, id=T, xy=T, cell=T, type="p", pch=16, col="magenta")
+# selezione tre pixel 
+# x     y  cell immagine18.1 immagine18.2 immagine18.3
+#1 139.5 351.5 92300            6           31           25
+#      x     y   cell immagine18.1 immagine18.2 immagine18.3
+#1 157.5 151.5 236318          194          226          223
+#      x     y   cell immagine18.1 immagine18.2 immagine18.3
+#1 328.5 167.5 224969           42           47           50
+band<-c(1,2,3)
+pixel1<-c(6,31,25)
+pixel2<-c(194,226,223)
+pixel3-c(42,47,50)
+#costruisco il dataframe 
+spectraleo<- data.frame(band,pixel1,pixel2,pixel3)
+# plottiamo attraverso ggplot
+ggplot(spectraleo , aes(x=band)) + 
+    geom_line(aes(y = pixel1), color = "green", linetype="dotted")+
+    geom_line(aes(y = pixel2), color = "red", linetype="dotted")+
+    geom_line(aes(y = pixel3), color = "blue", linetype="dotted")+  
+    labs(x="band", y="reflectance")
 
 
