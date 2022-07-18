@@ -32,7 +32,29 @@ attach(spectrals)
 # attraverso le aesteticts definiamo cosa deve essere l'asse delle x, mettiamo le bande
 # sull'asse delle y mettiamo la riflettanza mettendo una linea per la foresta e una per l'acqua 
 # attrvaerso le funzione geom_line inseriamo le geometria nel plot 
+# attraverso la funzione labs definiamo i nomi dell'asse delle x e delle y
 ggplot(output, aes(x=band)) + 
     geom_line(aes(y = forest), color = "green")+
     geom_line(aes(y = water), color = "blue", linetype = "dotted")+
     labs(x="wavelength", y="reflectance")
+# ----------------------------------------------------------------------
+# facciamo un'analisi multiteporale delle firme spettrali utilizzando le immagine defor1 e defor2
+# richiamiamo l'immagine defor1
+defor1 <- brick("defor1.jpg")
+plotRGB(defor1, r=1, g=2, b=3, stretch="Lin")
+click(defor1, id=T, xy=T, cell=T, type="p", pch=16, col="magenta") 
+# selezioniamo 5 pixel 
+#    x     y   cell defor1.1 defor1.2 defor1.3
+#1 52.5 333.5 102869      214       13       29
+#     x     y   cell defor1.1 defor1.2 defor1.3
+#1 98.5 331.5 104343      226       17       36
+#      x     y   cell defor1.1 defor1.2 defor1.3
+#1 132.5 335.5 101521      228        6       31
+#      x     y  cell defor1.1 defor1.2 defor1.3
+#1 134.5 373.5 74391      219      141      139
+#     x     y  cell defor1.1 defor1.2 defor1.3
+#1 87.5 381.5 68632      222       16       36
+# Faccio la stessa con per defor 2, selezione 5 pixel sulla stessa zona 
+
+
+
