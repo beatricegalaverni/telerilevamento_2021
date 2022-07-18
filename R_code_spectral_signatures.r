@@ -33,10 +33,10 @@ attach(spectrals)
 # sull'asse delle y mettiamo la riflettanza mettendo una linea per la foresta e una per l'acqua 
 # attrvaerso le funzione geom_line inseriamo le geometria nel plot 
 # attraverso la funzione labs definiamo i nomi dell'asse delle x e delle y
-ggplot(output, aes(x=band)) + 
+ggplot(spectrals , aes(x=band)) + 
     geom_line(aes(y = forest), color = "green")+
     geom_line(aes(y = water), color = "blue", linetype = "dotted")+
-    labs(x="wavelength", y="reflectance")
+    labs(x="band", y="reflectance")
 # ----------------------------------------------------------------------
 # facciamo un'analisi multiteporale delle firme spettrali utilizzando le immagine defor1 e defor2
 # richiamiamo l'immagine defor1
@@ -55,6 +55,34 @@ click(defor1, id=T, xy=T, cell=T, type="p", pch=16, col="magenta")
 #     x     y  cell defor1.1 defor1.2 defor1.3
 #1 87.5 381.5 68632      222       16       36
 # Faccio la stessa con per defor 2, selezione 5 pixel sulla stessa zona 
+# x     y  cell defor2.1 defor2.2 defor2.3
+#1 60.5 341.5 97573      189      176      168
+#      x     y   cell defor2.1 defor2.2 defor2.3
+#1 124.5 334.5 102656      233      127      131
+#      x     y  cell defor2.1 defor2.2 defor2.3
+#1 134.5 379.5 70401      142      119      113
+#      x     y  cell defor2.1 defor2.2 defor2.3
+#1 103.5 380.5 69653      209       11       26
+#     x     y   cell defor2.1 defor2.2 defor2.3
+#1 93.5 334.5 102625      195      153      155
+# costruiamo una colonna con i valori di riflettanza per la banda 1, 2 e 3 per IL TEMPO 1 E IL TEMPO 2 
+band<-c(1,2,3)
+tempo1<-c(214,13,29)
+tempo2<-c(189,176,168)
+# costruiamo il data frame 
+spectralst <- data.frame(band,time1,time2)
+spectralst
+#attraverso ggplot plottiamo 
+ggplot(spectralst , aes(x=band)) + 
+    geom_line(aes(y = tempo1), color = "green")+
+    geom_line(aes(y = tempo2), color = "blue", linetype = "dotted")+
+    labs(x="band", y="reflectance")
+# inseriamo i valori anche del secondo pixel     
+band<-c(1,2,3)
+tempo1p1<-c(214,13,29)
+tempo1p2<-c(226,17,36)
+tempo2p1<-c(189,176,168)
+tempo2p1<-c(233,127,131)
 
 
 
