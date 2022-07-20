@@ -1,0 +1,13 @@
+library(raster)
+
+setwd("C:/lab/california")
+list2018<-list.files(pattern="")
+list2021<-list.files(pattern="")
+2018import<-lapply(list2018,raster)
+2021import<-lapply(list2021,raster)
+cali2018<-stack(2018import)
+cali2021<-stack(2021import)
+# b1 = b l u e
+# b2 = g r e en
+# b3 = r ed
+# b4 = n i r
