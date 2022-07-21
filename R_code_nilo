@@ -37,14 +37,14 @@ plot(NDVI_2021, main= "NDVI 2021")
 # Differenza tra NDVI 2021 e NDVI 2018
 differenzaNDVI<- NDVI_2021 - NDVI_2018
 CAMBIARE COLORE 
-cls<- colorRampPalette(c("light blue", "white", "red")) (100)
+ cls<- colorRampPalette(c("light pink","white", "red")) (100)
 plot(differenzaNDVI, col=cls, main="differenza NDVI dall'anno 2021 al 2018")
 
 # CLASSIFICAZIONE NON SUPERVISIONATA
-lake2018ac <-unsuperClass(lake2018a, nClasse=4)
-plot(lake2018ac$map, main="Classificazione non supervisionata 2021, classi=3")
-lake2021ac <-unsuperClass(lake2021a, nClasse=4)
-plot(lake2021ac$map, main="Classificazione non supervisionata 2021, classi=3")
+nilo2018ac <-unsuperClass(nilo2018a, nClasse=4)
+plot(nilo2018ac$map, main="Classificazione non supervisionata 2021, classi=3")
+nilo2021ac <-unsuperClass(nilo2021a, nClasse=4)
+plot(nilo2021ac$map, main="Classificazione non supervisionata 2021, classi=3")
 
 #c a l c o l o l a f r e q u e n z a d e i p i x e l d i una c l a s s e
 freq(lake2018ac$map)
