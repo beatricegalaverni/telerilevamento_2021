@@ -45,3 +45,8 @@ lake2018ac <-unsuperClass(lake2018a, nClasse=4)
 plot(lake2018ac$map, main="Classificazione non supervisionata 2021, classi=3")
 lake2021ac <-unsuperClass(lake2021a, nClasse=4)
 plot(lake2021ac$map, main="Classificazione non supervisionata 2021, classi=3")
+
+#c a l c o l o l a f r e q u e n z a d e i p i x e l d i una c l a s s e
+freq(lake2018ac$map)
+sum21<−13755+11628+23017
+prop21 <− f r e q ( dan2021rc3 $map) /sum21
