@@ -1,13 +1,30 @@
 library(raster)
-
-setwd("C:/lab/california")
-list2018<-list.files(pattern="")
-list2021<-list.files(pattern="")
-2018import<-lapply(list2018,raster)
-2021import<-lapply(list2021,raster)
-cali2018<-stack(2018import)
-cali2021<-stack(2021import)
+library(ggplot2)
+library(gridExtra)
+library(RStoolbox)
+setwd("C:/lab/californialake")
+list2018<-list.files(pattern="T10TEL_20180602T185919")
+list2021<-list.files(pattern="T10TEL_20210626T185919")
+import18<-lapply(list2018,raster)
+import21<-lapply(list2021,raster)
+lake2018<-stack(import18)
+lake2021<-stack(import21)
 # b1 = b l u e
 # b2 = g r e en
 # b3 = r ed
 # b4 = n i r
+p321_18 <-ggRGB( lake2018,3,2,1, stretch="lin")
+p421_18 <-ggRGB( lake2018,4,2,1,stretch="lin")
+p321_21 <-ggRGB( lake2021,3,2,1, stretch="lin")
+p421_21 <-ggRGB( lake2021,4,2,1,stretch="lin")
+grid.arrange(p321_18, p421_18, p321_21, p421_21, nrow = 2)
+
+# NDVI
+# NDVI_2018
+nir18<-lake2018$T10TEL_20180602T185919_B08
+red18<-lake2018$T10TEL_20180602T185919_B04
+NDVI_2018<- (nir18- red18)/ (nir18+ red18)
+# NDVI_2021
+nir21<-lake2021$T10TEL_20210626T185919_B08
+red21<-lake2021$T10TEL_20210626T185919_B04
+NDVI_2021<- (nir21- red21)/ (nir21+ red21)
