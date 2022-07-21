@@ -27,8 +27,8 @@ red18<-lake2018a$T10TEL_20180602T185919_B04
 NDVI_2018<- (nir18- red18)/ (nir18+ red18)
 # NDVI_2021
 lake2021a<-aggregate (lake2021, fact=50)
-nir21<-lake2021$T10TEL_20210626T185919_B08
-red21<-lake2021$T10TEL_20210626T185919_B04
+nir21<-lake2021a$T10TEL_20210626T185919_B08
+red21<-lake2021a$T10TEL_20210626T185919_B04
 NDVI_2021<- (nir21- red21)/ (nir21+ red21)
 # Rappresentazione grafice dei due indici 
 par(mfrow=c(1,2))
@@ -41,8 +41,7 @@ cls<- colorRampPalette(c("light blue", "white", "red")) (100)
 plot(differenzaNDVI, col=cls, main="differenza NDVI dall'anno 2021 al 2018")
 
 # CLASSIFICAZIONE NON SUPERVISIONATA
-
-lake2018ac<-(lake2018a, nClasses=3)
-plot(lake2018ac$map, main=" Classificazione non supervisionate 2018, classi=3")
-lake2021ac<-(lake2021a, nClasse=3)
+lake2018ac <-unsuperClass(lake2018a, nClasse=4)
 plot(lake2018ac$map, main="Classificazione non supervisionata 2021, classi=3")
+lake2021ac <-unsuperClass(lake2021a, nClasse=4)
+plot(lake2021ac$map, main="Classificazione non supervisionata 2021, classi=3")
