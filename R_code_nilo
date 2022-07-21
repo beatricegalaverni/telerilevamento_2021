@@ -1,0 +1,52 @@
+library(raster)
+library(ggplot2)
+library(gridExtra)
+library(RStoolbox)
+setwd("C:/lab/nilo")
+list2018<-list.files(pattern="T35RQQ_20180626T083559")
+list2021<-list.files(pattern="T35RQQ_20210610T083559")
+import18<-lapply(list2018,raster)
+import21<-lapply(list2021,raster)
+nilo2018<-stack(import18)
+nilo2021<-stack(import21)
+# b1 = b l u e
+# b2 = g r e en
+# b3 = r ed
+# b4 = n i r
+p321_18 <-ggRGB( nilo2018,3,2,1, stretch="lin")
+p421_18 <-ggRGB( nilo2018,4,2,1,stretch="lin")
+p321_21 <-ggRGB( nilo2021,3,2,1, stretch="lin")
+p421_21 <-ggRGB( nilo2021,4,2,1,stretch="lin")
+grid.arrange(p321_18, p421_18, p321_21, p421_21, nrow = 2)
+
+# NDVI
+# NDVI_2018
+nilo2018a<-aggregate (nilo2018, fact=50)
+nir18<-nilo2018a$T35RQQ_20180626T083559_B04
+red18<-nilo2018a$T35RQQ_20180626T083559_B08
+NDVI_2018<- (nir18- red18)/ (nir18+ red18)
+# NDVI_2021
+nilo2021a<-aggregate (nilo2021, fact=50)
+nir21<-nilo2021a$T35RQQ_20210610T083559_B04
+red21<-nilo2021a$T35RQQ_20210610T083559_B08
+NDVI_2021<- (nir21- red21)/ (nir21+ red21)
+# Rappresentazione grafice dei due indici 
+par(mfrow=c(1,2))
+plot(NDVI_2018, main= "NDVI 2018")
+plot(NDVI_2021, main= "NDVI 2021")
+# Differenza tra NDVI 2021 e NDVI 2018
+differenzaNDVI<- NDVI_2021 - NDVI_2018
+CAMBIARE COLORE 
+cls<- colorRampPalette(c("light blue", "white", "red")) (100)
+plot(differenzaNDVI, col=cls, main="differenza NDVI dall'anno 2021 al 2018")
+
+# CLASSIFICAZIONE NON SUPERVISIONATA
+lake2018ac <-unsuperClass(lake2018a, nClasse=4)
+plot(lake2018ac$map, main="Classificazione non supervisionata 2021, classi=3")
+lake2021ac <-unsuperClass(lake2021a, nClasse=4)
+plot(lake2021ac$map, main="Classificazione non supervisionata 2021, classi=3")
+
+#c a l c o l o l a f r e q u e n z a d e i p i x e l d i una c l a s s e
+freq(lake2018ac$map)
+sum21<−13755+11628+23017
+prop21 <− f r e q ( dan2021rc3 $map) /sum21
