@@ -73,4 +73,41 @@ n21 <- ggplot(percentuali, aes(x=cover, y=percent_21, color=cover)) + geom_bar(s
 grid.arrange(n18, n21, nrow=1)
 
 
+# Firme spettrali
+
+plotRGB (dan2021,3,2,1, stretch= "lin")
+c l i c k ( dan2021 , i d=T, xy=T, c e l l=T, t ype=”p” , pch=16,
+c o l=” y e l l ow ” )
+plotRGB ( dan2018 , 3 , 2 , 1 , s t r e t c h=” l i n ” )
+c l i c k ( dan2018 , i d=T, xy=T, c e l l=T, t ype=”p” , pch=16,
+c o l=” y e l l ow ” )
+band<−c ( 1 , 2 , 3 , 4 )
+p i x e l 1 2021<−c (994 , 1374 , 1896 , 2474)
+p i x e l 2 2021<−c (245 , 485 , 284 , 3802)
+p i x e l 3 2021<−c (969 , 1360 , 1994 , 2820)
+p i x e l 4 2021<−c (531 , 773 , 1042 , 2060)
+p i x e l 1 2018<−c (1454 , 1540 , 2024 , 2803)
+p i x e l 2 2018<−c (849 , 739 , 450 , 3525)
+p i x e l 3 2018<−c (973 , 942 , 615 , 3198)
+p i x e l 4 2018<−c (888 , 700 , 512 , 615)
+
+f s<−data . frame ( band , p i x e l 1 2021 , p i x e l 1 2018 , p i x e l 2
+2021 , p i x e l 2 2018 , p i x e l 3 2021 , p i x e l 3 2018 , p i x e l 4
+2021 , p i x e l 4 2018)
+g g p l o t ( f s , a e s ( x=band ) )+
+geom l i n e ( a e s ( y=p i x e l 1 2021 , c o l o u r=” p i x e l 1 2021 ” ) ) +
+geom l i n e ( a e s ( y=p i x e l 1 2018 , c o l o u r=” p i x e l 1 2018 ” ) )+
+geom l i n e ( a e s ( y=p i x e l 2 2021 , c o l o u r=” p i x e l 2 2021 ” ) ) +
+geom l i n e ( a e s ( y=p i x e l 2 2018 , c o l o u r=” p i x e l 2 2018 ” ) ) +
+geom l i n e ( a e s ( y=p i x e l 3 2021 , c o l o u r=” p i x e l 3 2021 ” ) ) +
+geom l i n e ( a e s ( y=p i x e l 3 2018 , c o l o u r=” p i x e l 3 2018 ” ) )+
+geom l i n e ( a e s ( y=p i x e l 4 2021 , c o l o u r=” p i x e l 4 2021 ” ) ) +
+geom l i n e ( a e s ( y=p i x e l 4 2018 , c o l o u r=” p i x e l 4 2018 ” ) )+
+s c a l e c o l o u r manual ( ”” , b r e a k s = c ( ” p i x e l 1 2021 ” , ”
+p i x e l 1 2018 ” , ” p i x e l 2 2021 ” , ” p i x e l 2 2018 ” , ” p i x e l 3
+2021 ” , ” p i x e l 3 2018 ” , ” p i x e l 4 2021 ” , ” p i x e l 4 2018 ” ) ,
+v a l u e s = c ( ” orange ” , ” y e l l ow ” , ” dark g r e en ” , ” g r e en ” , ”
+r ed ” , ”magenta ” , ” b l a c k ” , ” g r e y ” ) ) +
+l a b s ( x=”band” , y=” r e f l e c t a n c e ” , t i t l e=” Fi rme s p e t t r a l i ” )
+Giada Ceola
 
