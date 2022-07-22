@@ -36,17 +36,41 @@ plot(NDVI_2018, main= "NDVI 2018")
 plot(NDVI_2021, main= "NDVI 2021")
 # Differenza tra NDVI 2021 e NDVI 2018
 differenzaNDVI<- NDVI_2021 - NDVI_2018
-CAMBIARE COLORE 
- cls<- colorRampPalette(c("light pink","white", "red")) (100)
+cls<- colorRampPalette(c("light pink","white", "red")) (100)
 plot(differenzaNDVI, col=cls, main="differenza NDVI dall'anno 2021 al 2018")
 
+# Calcoliamo variabilità dell'immagine 
+NDVI_21sd <- focal(NDVI_2021, w=matrix(1/25, nrow=5, ncol=5), fun=sd)
+clsd <- colorRampPalette(c('green','red','yellow'))(100)
+plot(NDVI_21sd, col=clsd)
+# Calcoliamo la media dell'NDVI
+NDVI_21mean<- focal(NDVI_2021, w=matrix(1/9, nrow=3, ncol=3), fun=mean)
+clsd <- colorRampPalette(c('green','red','yellow'))(100)
+plot(NDVI_21mean,col=clsd))))(100) # 
+plot(NDVI_21mean,col=clsd))
+
 # CLASSIFICAZIONE NON SUPERVISIONATA
-nilo2018ac <-unsuperClass(nilo2018a, nClasse=4)
-plot(nilo2018ac$map, main="Classificazione non supervisionata 2021, classi=3")
-nilo2021ac <-unsuperClass(nilo2021a, nClasse=4)
+nilo2018ac <-unsuperClass(nilo2018a, nClasse=3)
+plot(nilo2018ac$map, main="Classificazione non supervisionata 2018, classi=3")
+nilo2021ac <-unsuperClass(nilo2021a, nClasse=3)
 plot(nilo2021ac$map, main="Classificazione non supervisionata 2021, classi=3")
 
-#c a l c o l o l a f r e q u e n z a d e i p i x e l d i una c l a s s e
-freq(lake2018ac$map)
-sum21<−13755+11628+23017
-prop21 <− f r e q ( dan2021rc3 $map) /sum21
+# calcolo della frequanza di un pixel
+freq(nilo2018ac$map)
+sum18 <- 27530+14465+6405
+proporzione18 <- freq(nilo2018ac$map)/sum18
+freq(nilo2021ac$map)
+sum21 <- 26828+15358+6214
+proporzione2021 <-freq(nilo2021ac$map)/sum21
+#Generazione dataframe 
+cover <- c("Mare", "Vegetazione", "Suolo))
+percent_18 <- c(0.57, 0.30, 0.13)
+percent_21 <-c(0.55, 0.31, 0.12)
+percentuali<- data.frame(cover, percent_18, percent_21)
+# Plottiamo il data frame
+n18<- ggplot(percentuali, aes(x=cover, y=percent_18, color=cover)) + geom_bar(stat="identity", fill="white") + ggtitle ("Copertura 2018")
+n21 <- ggplot(percentuali, aes(x=cover, y=percent_21, color=cover)) + geom_bar(stat="identity", fill="white") + ggtitle ("Copertura 2021")
+grid.arrange(n18, n21, nrow=1)
+
+
+
