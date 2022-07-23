@@ -71,10 +71,10 @@ plotRGB (oroville2018,3,2,1, stretch= "lin")
 click( oroville2018, id=T, xy=T, cell=T, type="p" , pch=16, col= "yellow")
 plotRGB (oroville2021,3,2,1, stretch= "lin")
 click( oroville2021, id=T, xy=T, cell=T, type="p" , pch=16, col= "yellow")
-band<−c ( 1 , 2 , 3 , 4 )
-pixel1_18 <-c( 1171, 10360, 799, 633)
+bande <-c(1,2,3,4)
+pixel1_18 <-c( 1171, 1036, 799, 633)
 pixel2_18 <-c( 755, 686 , 460 ,2188 )
-pixel3_18 <-c( 1232, 1250 , 1382 , 18)11
+pixel3_18 <-c( 1232, 1250 , 1382 , 18)
 pixel4_18 <-c( 918,  752,  463,351 )
 pixel5_18 <-c( 1101, 909 , 655 ,460 )
 pixel1_21 <-c( 280,495,470,2388 )
@@ -83,21 +83,21 @@ pixel3_21 <-c( 672,1007,1280,2075 )
 pixel4_21 <-c( 412, 612, 290, 137 )
 pixel5_21 <-c( 199, 404, 86, 1 )
 
-fs<−data.frame( band,pixel1_18, pixel2_18, pixel3_18, pixel4_18, pixel5, pixel1, pixel2_21, pixel3_21, pixel4_21, pixel5_21)
-ggplot( fs , a e s ( x=band ) )+
-geom l i n e ( a e s ( y=p i x e l 1 2021 , c o l o u r=” p i x e l 1 2021 ” ) ) +
-geom l i n e ( a e s ( y=p i x e l 1 2018 , c o l o u r=” p i x e l 1 2018 ” ) )+
-geom l i n e ( a e s ( y=p i x e l 2 2021 , c o l o u r=” p i x e l 2 2021 ” ) ) +
-geom l i n e ( a e s ( y=p i x e l 2 2018 , c o l o u r=” p i x e l 2 2018 ” ) ) +
-geom l i n e ( a e s ( y=p i x e l 3 2021 , c o l o u r=” p i x e l 3 2021 ” ) ) +
-geom l i n e ( a e s ( y=p i x e l 3 2018 , c o l o u r=” p i x e l 3 2018 ” ) )+
-geom l i n e ( a e s ( y=p i x e l 4 2021 , c o l o u r=” p i x e l 4 2021 ” ) ) +
-geom l i n e ( a e s ( y=p i x e l 4 2018 , c o l o u r=” p i x e l 4 2018 ” ) )+
-s c a l e c o l o u r manual ( ”” , b r e a k s = c ( ” p i x e l 1 2021 ” , ”
-p i x e l 1 2018 ” , ” p i x e l 2 2021 ” , ” p i x e l 2 2018 ” , ” p i x e l 3
-2021 ” , ” p i x e l 3 2018 ” , ” p i x e l 4 2021 ” , ” p i x e l 4 2018 ” ) ,
-v a l u e s = c ( ” orange ” , ” y e l l ow ” , ” dark g r e en ” , ” g r e en ” , ”
-r ed ” , ”magenta ” , ” b l a c k ” , ” g r e y ” ) ) +
-l a b s ( x=”band” , y=” r e f l e c t a n c e ” , t i t l e=” Fi rme s p e t t r a l i ” )
+ss<-data.frame( bande,pixel1_18, pixel2_18, pixel3_18, pixel4_18, pixel5_18, pixel1_21, pixel2_21, pixel3_21, pixel4_21, pixel5_21)
+
+ggplot(ss, aes(x=bande)) + 
+      geom_line(aes(y =pixel1_18), color = "blue", linetype="dotted")+
+      geom_line(aes(y =pixel2_18), color = "blue", linetype="dotted")+
+      geom_line(aes(y =pixel3_18 ), color = "blue", linetype="dotted")+
+      geom_line(aes(y =pixel4_18 ), color = "blue", linetype="dotted")+
+      geom_line(aes(y =pixel5_18 ), color = "blue", linetype="dotted")+
+      geom_line(aes(y =pixel1_21), color = "green", linetype="dotted")+
+      geom_line(aes(y =pixel2_21), color = "green", linetype="dotted")+
+      geom_line(aes(y =pixel3_21), color = "green", linetype="dotted")+
+      geom_line(aes(y =pixel4_21), color = "green", linetype="dotted")+
+      geom_line(aes(y =pixel5_21), color = "green", linetype="dotted")+
+    labs(x="bande", y="riflettanza")
+
+
 
 
