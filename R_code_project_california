@@ -21,14 +21,14 @@ grid.arrange(p321_18, p421_18, p321_21, p421_21, nrow = 2)
 
 # NDVI
 # NDVI_2018
-oroville2018a<-aggregate (oroville2018, fact=20)
+oroville2018a<-aggregate(oroville2018, fact=20)
 nir18<-oroville2018a$T10SFJ_20180624T184921_B08
 red18<-oroville2018a$T10SFJ_20180624T184921_B04
 NDVI_2018<- (nir18- red18)/ (nir18+ red18)
 # NDVI_2021
-oroville2021a<-aggregate (oroville2021, fact=20)
-nir21<-oroville2021a$T10SFJ_20210628T184921_B08
-red21<-oroville2021a$T10SFJ_20210628T184921_B04
+oroville2021a<-aggregate(oroville2021, fact=20)
+nir21<-oroville2021a$T10SFJ_20210628T184921_B08_10m
+red21<-oroville2021a$T10SFJ_20210628T184921_B04_10m
 NDVI_2021<- (nir21- red21)/ (nir21+ red21)
 # Rappresentazione grafice dei due indici 
 par(mfrow=c(1,2))
@@ -36,15 +36,16 @@ plot(NDVI_2018, main= "NDVI 2018")
 plot(NDVI_2021, main= "NDVI 2021")
 # Differenza tra NDVI 2021 e NDVI 2018
 differenzaNDVI<- NDVI_2021 - NDVI_2018
-CAMBIARE COLORE 
 cls<- colorRampPalette(c("light blue", "white", "red")) (100)
 plot(differenzaNDVI, col=cls, main="differenza NDVI dall'anno 2021 al 2018")
 
 # CLASSIFICAZIONE NON SUPERVISIONATA
-lake2018ac <-unsuperClass(lake2018a, nClasse=4)
-plot(lake2018ac$map, main="Classificazione non supervisionata 2021, classi=3")
-lake2021ac <-unsuperClass(lake2021a, nClasse=4)
-plot(lake2021ac$map, main="Classificazione non supervisionata 2021, classi=3")
+oroville2018ac <-unsuperClass(oroville2018a, nClasse=3)
+plot(oroville2018ac$map, main="Classificazione non supervisionata 2018, classi=3")
+oroville2021ac <-unsuperClass(oroville2021a, nClasse=3)
+par(mfrow=c(1,2))
+plot(oroville2018ac$map, main="Classificazione non supervisionata 2018, classi=3")
+plot(oroville2021ac$map, main="Classificazione non supervisionata 2021, classi=3")
 
 #c a l c o l o l a f r e q u e n z a d e i p i x e l d i una c l a s s e
 freq(lake2018ac$map)
