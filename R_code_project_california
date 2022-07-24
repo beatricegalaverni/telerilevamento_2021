@@ -9,10 +9,10 @@ import18<-lapply(list2018,raster)
 import21<-lapply(list2021,raster)
 oroville2018<-stack(import18)
 oroville2021<-stack(import21)
-# b1 = blue
-# b2 = green
-# b3 = red
-# b4 = nir
+# b1=blue
+# b2=green
+# b3=red
+# b4=nir
 p321_18 <-ggRGB( oroville2018,3,2,1, stretch="lin")
 p421_18 <-ggRGB( oroville2018,4,2,1,stretch="lin")
 p321_21 <-ggRGB( oroville2021,3,2,1, stretch="lin")
@@ -30,7 +30,7 @@ oroville2021a<-aggregate(oroville2021, fact=20)
 nir21<-oroville2021a$T10SFJ_20210628T184921_B08_10m
 red21<-oroville2021a$T10SFJ_20210628T184921_B04_10m
 NDVI_2021<- (nir21- red21)/ (nir21+ red21)
-# Rappresentazione grafice dei due indici 
+# Rappresentazione grafica dei due indici 
 par(mfrow=c(1,2))
 plot(NDVI_2018, main= "NDVI 2018")
 plot(NDVI_2021, main= "NDVI 2021")
@@ -39,27 +39,26 @@ differenzaNDVI<- NDVI_2021 - NDVI_2018
 cls<- colorRampPalette(c("light blue", "white", "red")) (100)
 plot(differenzaNDVI, col=cls, main="differenza NDVI dall'anno 2021 al 2018")
 
-# CLASSIFICAZIONE NON SUPERVISIONATA
-oroville2018ac <-unsuperClass(oroville2018a, nClasse=3)
-plot(oroville2018ac$map, main="Classificazione non supervisionata 2018, classi=3")
-oroville2021ac <-unsuperClass(oroville2021a, nClasse=3)
+# Classificazione non supervisionata
+oroville2018ac <-unsuperClass(oroville2018a, nClasse=2)
+oroville2021ac <-unsuperClass(oroville2021a, nClasse=2)
 par(mfrow=c(1,2))
-plot(oroville2018ac$map, main="Classificazione non supervisionata 2018, classi=3")
-plot(oroville2021ac$map, main="Classificazione non supervisionata 2021, classi=3")
+plot(oroville2018ac$map, main="Classificazione non supervisionata 2018, classi=2")
+plot(oroville2021ac$map, main="Classificazione non supervisionata 2021, classi=2")
 
-#c a l c o l o l a f r e q u e n z a d e i p i x e l d i una c l a s s e
+# Calcolo la frequenza dei pixel
 freq(oroville2018ac$map)
-sum18 <- 79889+147053+74459
+sum18 <- 95277+206124
 proporzione18 <- freq(oroville2018ac$map)/sum18
 freq(oroville2021ac$map)
-sum21 <- 155905+89110+56386
+sum21 <- 100137+201264
 proporzione21 <-freq(oroville2021ac$map)/sum21
-#Generazione dataframe 
-cover<- (c("Suolo", "Vegetazione", "boh"))
-percent_18 <- c(0.26, 0.49, 0.24)
-percent_21 <-c(0.29, 0.51, 0.18)
+# Generazione del dataframe 
+cover<- (c("Suolo e Edifici", "Vegetazione"))
+percent_18 <- c(0.32, 0.68)
+percent_21 <-c(0.33, 0.66)
 percentuali<- data.frame(cover, percent_18, percent_21)
-# Plottiamo il data frame
+# Rappresentazione grafica data frame
 n18<- ggplot(percentuali, aes(x=cover, y=percent_18, color=cover)) + geom_bar(stat="identity", fill="white") + ggtitle ("Copertura 2018")
 n21 <- ggplot(percentuali, aes(x=cover, y=percent_21, color=cover)) + geom_bar(stat="identity", fill="white") + ggtitle ("Copertura 2021")
 grid.arrange(n18, n21, nrow=1)
