@@ -71,31 +71,32 @@ click( oroville2018, id=T, xy=T, cell=T, type="p" , pch=16, col= "yellow")
 plotRGB (oroville2021,3,2,1, stretch= "lin")
 click( oroville2021, id=T, xy=T, cell=T, type="p" , pch=16, col= "yellow")
 bande <-c(1,2,3,4)
-pixel1_18 <-c( 1171, 1036, 799, 633)
-pixel2_18 <-c( 755, 686 , 460 ,2188 )
-pixel3_18 <-c( 1232, 1250 , 1382 , 18)
-pixel4_18 <-c( 918,  752,  463,351 )
-pixel5_18 <-c( 1101, 909 , 655 ,460 )
-pixel1_21 <-c( 280,495,470,2388 )
-pixel2_21 <-c(237,486 ,217 ,64 )
-pixel3_21 <-c( 672,1007,1280,2075 )
-pixel4_21 <-c( 412, 612, 290, 137 )
-pixel5_21 <-c( 199, 404, 86, 1 )
+pixel1_18 <-c( 900,728,456,308)
+pixel2_18 <-c( 1228,1336,1830,2404 )
+pixel3_18 <-c( 803,669,344,183)
+pixel4_18 <-c( 861,15,621,2429 )
+pixel5_18 <-c( 772,582,280,132)
+pixel1_21 <-c(1003,1654,2828,3487)
+pixel2_21 <-c(1636,2232,2856,3437)
+pixel3_21 <-c( 318,487,245,127)
+pixel4_21 <-c(  1922,2896,3858,4587)
+pixel5_21 <-c( 345,611,750,2516)
 
 ss<-data.frame( bande,pixel1_18, pixel2_18, pixel3_18, pixel4_18, pixel5_18, pixel1_21, pixel2_21, pixel3_21, pixel4_21, pixel5_21)
 
 ggplot(ss, aes(x=bande)) + 
-      geom_line(aes(y =pixel1_18), color = "blue", linetype="dotted")+
-      geom_line(aes(y =pixel2_18), color = "blue", linetype="dotted")+
-      geom_line(aes(y =pixel3_18 ), color = "blue", linetype="dotted")+
-      geom_line(aes(y =pixel4_18 ), color = "blue", linetype="dotted")+
-      geom_line(aes(y =pixel5_18 ), color = "blue", linetype="dotted")+
-      geom_line(aes(y =pixel1_21), color = "green", linetype="dotted")+
-      geom_line(aes(y =pixel2_21), color = "green", linetype="dotted")+
-      geom_line(aes(y =pixel3_21), color = "green", linetype="dotted")+
-      geom_line(aes(y =pixel4_21), color = "green", linetype="dotted")+
-      geom_line(aes(y =pixel5_21), color = "green", linetype="dotted")+
+      geom_line(aes(y =pixel1_18), color = "blue")+
+      geom_line(aes(y =pixel2_18), color = "blue")+
+      geom_line(aes(y =pixel3_18 ), color = "blue")+
+      geom_line(aes(y =pixel4_18 ), color = "blue")+
+      geom_line(aes(y =pixel5_18 ), color = "blue")+
+      geom_line(aes(y =pixel1_21), color = "red")+
+      geom_line(aes(y =pixel2_21), color = "red")+
+      geom_line(aes(y =pixel3_21), color = "red")+
+      geom_line(aes(y =pixel4_21), color = "red")+
+      geom_line(aes(y =pixel5_21), color = "red")+
     labs(x="bande", y="riflettanza")
+
 
 
 
