@@ -12,6 +12,7 @@
 # 9- R code land cover 
 # 10- R code variability 
 # 11- R code spectral signatures
+# 12- R code NO2
 #----------------------------------------------
 # 1- remote sensing remote first
 # Il mio primo codice in R per il telerilevamento 
@@ -787,6 +788,54 @@ ggplot(spectraleo , aes(x=band)) +
     geom_line(aes(y = pixel2), color = "red", linetype="dotted")+
     geom_line(aes(y = pixel3), color = "blue", linetype="dotted")+  
     labs(x="band", y="reflectance")
+# -----------------------------------------------------------------------
+# R_code_NO2
+library(raster)
+library(RStoolbox)
+# facciamo il set della working directroy
+setwd("C:/lab/EN")
+# importiamo la prima immagine, solo una banda 
+EN01<- raster("EN_0001".png)
+# plottiamo la prima immagine con una coloRampPalette da noi scelta 
+# i valori più alti sono evidenziati dal colore rosso
+cls <- colorRampPalette(c("white","pink","red")) (200)
+plot(EN01, col=cls)
+# importiamo l'ultima immagine del set di immagini con la coloRampPalette scritta in precedenza 
+EN13<- raster("EN_0013".png)
+plot(EN13, col=cls)
+# Facciamo la differenzaa tra la prima immagine e la trenicesima 
+# differenza tra i mesi di gennaio  e quello di marzo
+dif<- EN01-EN13
+plot(dif, col=cls)
+# plottiamo insieme le 3 immagini ottenute, con le stesse colorRampPalette e mettendo il titolo 
+par(mfcol=c(1,3))
+plot(EN01, col=cls, main="NO2 in Gennaio")
+plot(EN13, col=cls, main="NO2 in Marzo")
+plot(dif, col=cls  main="Differenza tra Gennaio e Marzo")
+# plottiamo tutte le 13 immagini insieme
+# costruiamo un lista di file con la funzione list.files
+rlist<-list.files(pattern="EN")
+rlist
+applichiamo sulla lista la funzione raster 
+import<-lapply(rlist,raster)
+import
+# con la funzione stack abbiamo compattato i 13 file insieme
+EN<-stack(import)
+plot(EN, col=cls)
+# raplicare il plot dell'immagine 1 e 13 utilizzando la stuck di base (da 1 a 13)
+# legando il dataset con le singole bande
+par(mfrow=c(2,1))
+plot(EN$EN_0001, col=cls)
+plot(EN$EN_0013, col=cls)
+# Fare l'analalisi delle componenti principali sulle 13 immagini ( sullo stuck)
+# utilizzando la funzione rastrPCA
+ENpca<-rasterPCA(EN)
+summary(ENpca$model)
+plotRGB(ENpca$map, r=1, g=2, b=3, stretch="Lin")
+# Calcolare la variabilità sulla prima compponente 
+# calolo della deviazione standard sulla prima componente 
+PC1sd<-focal(ENpca$map$PC1, w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+plot(PC1sd, col=cls)
 
 
 
