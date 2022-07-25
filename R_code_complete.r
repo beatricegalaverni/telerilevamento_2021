@@ -25,12 +25,11 @@ colore<-colorRampPalette(c("black","gray","light gray"))(100)
 plot(p224r63_2011, col=colore)
 # Cambiare colore ed avere scala di colori differenti 
 colore<-colorRampPalette(c("pink","black","green"))(100)
-# plottiamo la ostra immagine con la scala di colore cambiata
+# plottiamo la nostra immagine con la scala di colori cambiata
 plot(p224r63_2011, col=colore)
-# Lezione 24.03.21
-Vado a richiamare il paccheto raster 
+#Vado a richiamare il paccheto raster 
 library(raster)
-Vado a richiamare la cartella lab
+#Vado a richiamare la cartella lab
 setwd("C:/lab/") 
 p224r63_2011 <- brick("p224r63_2011_masked.grd")
 cls <- colorRampPalette(c("red","pink","orange","purple")) (200)
@@ -192,11 +191,11 @@ plot(lst_2000)
 plot(lst_2005)
 plot(lst_2010)
 plot(lst_2015)
-# Creiamo una lista di file con la funzione # list.files e lo associamo ad un oggetto rlist
+# Creiamo una lista di file con la funzione list.files e lo associamo ad un oggetto rlist
 rlist<-list.files(pattern="lst")
 # andiamo a vedere che abbiamo ottenuto la lista di file
 rlist
-# attraverso la funzione lapply applichiamo la funzione #raster a tutta a lista di file creata in precedenza 
+# attraverso la funzione lapply applichiamo la funzione raster a tutta a lista di file creata in precedenza 
 import<-lapply(rlist, raster)
 # Creiamo un file unico composto da diversi file raster attraverso funzione #stack
 TGr<-stack(import)
@@ -218,7 +217,7 @@ TGr<-stack(import)
 TGr
 # utilizziamo comando level plot che ci da un'immagine più chiara 
 levelplot(TGr)
-#level plot vhr ci fa vedere come varia la temperatura nell'area in esame
+#level plot che ci fa vedere come varia la temperatura nell'area in esame
 levelplot(TGr$lst_2000)
 # Cambiare la colore ramp palette, possiamo farlo perchè stiamo usando immagini singole 
 cl <- colorRampPalette(c("blue","light blue","pink","red"))(100)
@@ -241,7 +240,8 @@ levelplot(melt)
 # Possiamo fare delle "operazioni algebriche", fare la sottrazione tra uno strato e un altro e a questo associamo un nome. prima dobbiamo legare il singolo raster interno al proprio file 
 melt_amount <- melt$X2007annual_melt - melt$X1979annual_melt
 melt_amount
-# creiamo una nuoca colorRampPalette dove associamo ai valori più bassi il blu, ai valori medi il bianco e ai valori più alti in rosso
+# creiamo una nuov
+a colorRampPalette dove associamo ai valori più bassi il blu, ai valori medi il bianco e ai valori più alti in rosso
 clb <- colorRampPalette(c("blue","white","red"))(100)
 plot(melt_amount, col=clb)
 # facciamo un level plot
@@ -377,7 +377,7 @@ ggRGB(p224r63,4,3,2, stretch="lin")
 p1 <- ggRGB(p224r63,3,2,1, stretch="lin")
 p2 <- ggRGB(p224r63,4,3,2, stretch="lin")
 
-grid.arrange(p1, p2, nrow = 2) # this needs gridExtra
+grid.arrange(p1, p2, nrow = 2) 
 #----------------------------------------------------------------------------------------
 # 8- R code vegetation indices
 # R_code_vegetation_indices.r
